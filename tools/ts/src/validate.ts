@@ -28,7 +28,15 @@ export async function validateSkillDir(
     return { ok: false, errors: [`failed to parse skill.json in ${dir}: ${(e as Error).message}`] };
   }
 
-  const validate = await getSkillValidator();
+  let validate;
+  try {
+    validate = await getSkillValidator();
+  } catch (e) {
+    return {
+      ok: false,
+      errors: [`failed to load skill schema: ${(e as Error).message}`]
+    };
+  }
   if (!validate(skill.raw)) {
     for (const err of validate.errors ?? []) {
       errors.push(`schema: ${err.instancePath || "/"} ${err.message ?? "invalid"}`);

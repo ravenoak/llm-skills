@@ -1,0 +1,9 @@
+{
+  "specVersion": "1",
+  "id": "bad-license",
+  "version": "0.1.0",
+  "name": "Bad License",
+  "description": "Use when the validator needs a fixture whose license is not a recognized SPDX identifier.",
+  "license": "Definitely-Not-A-Real-SPDX-ID",
+  "body": { "path": "body.md" }
+}

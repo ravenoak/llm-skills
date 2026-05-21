@@ -1,0 +1,3 @@
+# Bad License
+
+Fixture body.

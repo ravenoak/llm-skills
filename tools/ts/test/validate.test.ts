@@ -29,4 +29,10 @@ describe("validateSkillDir", () => {
     expect(result.ok).toBe(false);
     expect(result.errors.some(e => e.toLowerCase().includes("missing"))).toBe(true);
   });
+
+  it("rejects when license is not a recognized SPDX identifier", async () => {
+    const result = await validateSkillDir(join(fixtures, "bad-license"));
+    expect(result.ok).toBe(false);
+    expect(result.errors.some(e => e.includes("not a recognized SPDX identifier"))).toBe(true);
+  });
 });
