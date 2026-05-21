@@ -1,0 +1,8 @@
+{
+  "specVersion": "1",
+  "id": "minimal-skill",
+  "version": "0.0.1",
+  "name": "Minimal Skill",
+  "description": "Use when verifying that the llm-skills toolchain parses and validates the smallest valid manifest end-to-end.",
+  "body": { "path": "body.md" }
+}

@@ -1,0 +1,123 @@
+{
+  "$id": "https://github.com/ravenoak/llm-skills/spec/skill.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "llm-skills portable skill manifest",
+  "type": "object",
+  "required": ["specVersion", "id", "version", "name", "description", "body"],
+  "additionalProperties": false,
+  "properties": {
+    "specVersion": { "const": "1" },
+    "id":          { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,63}$" },
+    "version":     { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+(-[A-Za-z0-9.-]+)?$" },
+    "name":        { "type": "string", "minLength": 1, "maxLength": 80 },
+    "description": { "type": "string", "minLength": 10, "maxLength": 1024 },
+    "tags":        { "type": "array",  "items": { "type": "string" }, "uniqueItems": true },
+    "license":     { "type": "string" },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "url":  { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "body":     { "$ref": "#/$defs/bodyRef" },
+    "inputs":   { "type": "array", "items": { "$ref": "#/$defs/input" } },
+    "examples": { "type": "array", "items": { "$ref": "#/$defs/example" } },
+    "targets": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "claude-skill":  { "$ref": "#/$defs/claudeSkillTarget" },
+        "claude-plugin": { "$ref": "#/$defs/claudePluginTarget" },
+        "openai-gpt":    { "$ref": "#/$defs/openaiTarget" },
+        "portable":      { "$ref": "#/$defs/portableTarget" }
+      }
+    },
+    "overrides": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/bodyRef" },
+      "propertyNames": { "enum": ["claude-skill", "claude-plugin", "openai-gpt", "portable"] }
+    }
+  },
+  "$defs": {
+    "bodyRef": {
+      "type": "object",
+      "oneOf": [
+        {
+          "required": ["path"],
+          "additionalProperties": false,
+          "properties": { "path": { "type": "string", "minLength": 1 } }
+        },
+        {
+          "required": ["template"],
+          "additionalProperties": false,
+          "properties": {
+            "template": { "type": "string", "minLength": 1 },
+            "vars":     { "type": "object" }
+          }
+        }
+      ]
+    },
+    "input": {
+      "type": "object",
+      "required": ["name", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "name":        { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
+        "type":        { "enum": ["string", "number", "boolean", "object", "array"] },
+        "description": { "type": "string" },
+        "required":    { "type": "boolean", "default": false },
+        "default":     {}
+      }
+    },
+    "example": {
+      "type": "object",
+      "required": ["input", "expectedBehavior"],
+      "additionalProperties": false,
+      "properties": {
+        "input":            { "type": "string", "minLength": 1 },
+        "expectedBehavior": { "type": "string", "minLength": 1 },
+        "rubric":           { "type": "object" }
+      }
+    },
+    "claudeSkillTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled":      { "type": "boolean", "default": true },
+        "allowedTools": { "type": "array", "items": { "type": "string" } },
+        "model":        { "type": "string" }
+      }
+    },
+    "claudePluginTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled":  { "type": "boolean", "default": true },
+        "category": { "type": "string" }
+      }
+    },
+    "openaiTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled":              { "type": "boolean", "default": true },
+        "conversationStarters": { "type": "array", "items": { "type": "string" } },
+        "capabilities":         { "type": "array", "items": { "enum": ["web_browsing", "code_interpreter", "dalle"] } },
+        "actionsSchema":        { "type": "string" }
+      }
+    },
+    "portableTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean", "default": true }
+      }
+    }
+  }
+}
