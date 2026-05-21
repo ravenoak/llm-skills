@@ -1,3 +1,5 @@
+import { pathToFileURL } from "node:url";
+
 export const version = "0.1.0";
 
 async function main(): Promise<void> {
@@ -5,6 +7,6 @@ async function main(): Promise<void> {
   console.log(`skillsmith ${version}`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   void main();
 }

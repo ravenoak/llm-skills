@@ -6,12 +6,12 @@
   "type": "module",
   "engines": { "node": ">=24" },
   "bin": { "skillsmith": "./dist/cli.js" },
-  "files": ["dist", "README.md", "../../spec/skill.schema.json", "../../spec/marketplace-entry.schema.json"],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "lint": "eslint src test --ext .ts",
+    "lint": "eslint src test",
     "prepublishOnly": "npm run typecheck && npm run lint && npm test && npm run build"
   },
   "dependencies": {
@@ -22,7 +22,7 @@
     "spdx-license-ids": "^3.0.20"
   },
   "devDependencies": {
-    "@types/node": "^22.5.0",
+    "@types/node": "^24.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.0.0",
