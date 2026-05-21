@@ -1,0 +1,27 @@
+# Node / TS
+node_modules/
+*.tsbuildinfo
+tools/ts/dist/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+tools/py/dist/
+tools/py/*.egg-info/
+
+# Build outputs (non-Claude targets only — Claude SKILL.md is committed)
+/dist/
+
+# Reports
+dist/reports/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+.claude/settings.local.json
