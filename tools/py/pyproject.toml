@@ -46,3 +46,9 @@ dev = [
   "ruff>=0.6",
   "mypy>=1.11"
 ]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+include = ["src", "tests"]
+pythonVersion = "3.13"
