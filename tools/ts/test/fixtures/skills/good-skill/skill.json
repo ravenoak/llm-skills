@@ -1,0 +1,9 @@
+{
+  "specVersion": "1",
+  "id": "good-skill",
+  "version": "0.1.0",
+  "name": "Good Skill",
+  "description": "Use when the validator needs a known-good fixture for unit tests.",
+  "license": "MIT",
+  "body": { "path": "body.md" }
+}

@@ -1,0 +1,8 @@
+{
+  "specVersion": "1",
+  "id": "mismatched-id",
+  "version": "0.1.0",
+  "name": "Bad ID",
+  "description": "Use when the validator needs a fixture whose id does not match its directory.",
+  "body": { "path": "body.md" }
+}
