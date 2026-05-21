@@ -125,8 +125,13 @@ export async function main(): Promise<number> {
     .command("new <id>")
     .description("scaffold a new skill")
     .action(async (id: string) => {
-      await scaffoldSkill({ root: repoRoot, id });
-      console.log(`Created skills/${id}/skill.json and body.md`);
+      try {
+        await scaffoldSkill({ root: repoRoot, id });
+        console.log(`Created skills/${id}/skill.json and body.md`);
+      } catch (e) {
+        console.error(`✗ ${(e as Error).message}`);
+        exitCode = 1;
+      }
     });
 
   await program.parseAsync();
