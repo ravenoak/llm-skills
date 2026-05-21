@@ -1,0 +1,8 @@
+{
+  "specVersion": "1",
+  "id": "good-skill",
+  "version": "0.1.0",
+  "name": "Good Skill",
+  "description": "Use when the Python loader needs a known-good fixture.",
+  "body": { "path": "body.md" }
+}

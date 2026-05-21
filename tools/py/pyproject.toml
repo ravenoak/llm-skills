@@ -44,7 +44,8 @@ addopts = "-ra -q"
 dev = [
   "pytest>=8.3",
   "ruff>=0.6",
-  "mypy>=1.11"
+  "mypy>=1.11",
+  "types-jsonschema>=4.26.0.20260518",
 ]
 
 [tool.pyright]
