@@ -1,0 +1,7 @@
+# Default owner for everything
+*           @ravenoak
+
+# Extra-careful surfaces
+/spec/      @ravenoak
+/tools/     @ravenoak
+/.github/   @ravenoak
