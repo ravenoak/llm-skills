@@ -1,0 +1,48 @@
+version: "3"
+
+tasks:
+  setup:
+    desc: Install Node and Python tooling.
+    cmds:
+      - npm --prefix tools/ts ci
+      - cd tools/py && uv sync
+
+  validate:
+    desc: Validate every skill manifest.
+    cmds:
+      - npm --prefix tools/ts exec -- skillsmith validate
+
+  lint:
+    desc: Run prose lint over all skills.
+    cmds:
+      - npm --prefix tools/ts exec -- skillsmith lint
+
+  build:
+    desc: Compile every target.
+    cmds:
+      - npm --prefix tools/ts run build
+      - npm --prefix tools/ts exec -- skillsmith build
+
+  check:
+    desc: Full CI gate (validate + lint + build + git-clean).
+    cmds:
+      - npm --prefix tools/ts run typecheck
+      - npm --prefix tools/ts run lint
+      - npm --prefix tools/ts test
+      - cd tools/py && uv run ruff check
+      - cd tools/py && uv run mypy
+      - cd tools/py && uv run pytest
+      - npm --prefix tools/ts exec -- skillsmith check
+
+  eval:
+    desc: Run evals (network calls; gated by LLM_SKILLS_RUN_EVALS=1).
+    preconditions:
+      - sh: '[ "$LLM_SKILLS_RUN_EVALS" = "1" ]'
+        msg: 'eval is gated; set LLM_SKILLS_RUN_EVALS=1 to run'
+    cmds:
+      - cd tools/py && uv run llm-skills eval --all
+
+  clean:
+    desc: Remove built outputs.
+    cmds:
+      - rm -rf dist tools/ts/dist
