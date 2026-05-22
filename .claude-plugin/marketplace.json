@@ -1,21 +1,28 @@
 {
-  "name": "llm-skills",
+  "name": "ravenoak-llm-skills",
   "description": "Pluralistic, multi-disciplinary reasoning skills for Claude Code.",
   "owner": {
     "name": "ravenoak"
   },
   "plugins": [
     {
-      "name": "llm-skills",
-      "description": "Pluralistic, multi-disciplinary reasoning skills for Claude Code.",
-      "version": "0.0.0",
-      "source": "./",
+      "name": "reasoning-framework",
+      "description": "Use when stress-testing a conclusion, auditing a complex claim, mapping a multi-actor system, or spotting motivated reasoning — when rigor matters more than speed. Skip for time-pressured decisions, mechanical tasks, lookups, or when the user wants a recommendation rather than a tour of considerations.",
+      "version": "0.2.0",
+      "source": "./plugins/reasoning-framework",
       "author": {
         "name": "ravenoak"
       },
       "homepage": "https://github.com/ravenoak/llm-skills",
       "repository": "https://github.com/ravenoak/llm-skills",
-      "license": "MIT"
+      "license": "MIT",
+      "keywords": [
+        "reasoning",
+        "analysis",
+        "critical-thinking",
+        "epistemics"
+      ],
+      "category": "reasoning"
     }
   ]
 }

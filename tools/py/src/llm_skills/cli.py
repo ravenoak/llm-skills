@@ -15,7 +15,7 @@ from llm_skills.loader import LoadError, load_skill
 from llm_skills.score import score_description
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
-SKILLS_DIR = REPO_ROOT / "skills"
+SKILLS_DIR = REPO_ROOT / "plugins"
 REPORTS_DIR = REPO_ROOT / "dist" / "reports"
 
 

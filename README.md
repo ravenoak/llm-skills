@@ -6,7 +6,7 @@ Repository: <https://github.com/ravenoak/llm-skills>
 
 ## Status
 
-Early release. The first shipping skill is [`reasoning-framework`](./skills/reasoning-framework); more skills will land against the same spec and pipeline.
+Early release. The first shipping skill is [`reasoning-framework`](./plugins/reasoning-framework); more skills will land against the same spec and pipeline.
 
 ## Install
 
@@ -18,10 +18,10 @@ In an interactive Claude Code session:
 
 ```text
 /plugin marketplace add ravenoak/llm-skills
-/plugin install llm-skills@llm-skills
+/plugin install reasoning-framework@ravenoak-llm-skills
 ```
 
-This installs the `llm-skills` plugin, which bundles every shipping skill (currently `reasoning-framework`); each one activates from its own `description` trigger phrase. `/plugin marketplace update llm-skills` picks up new releases. Releases are tagged `v*.*.*`; the latest tag is the source of truth.
+Each skill is its own installable plugin — pick the ones you want, no all-or-nothing bundle. `/plugin marketplace update ravenoak-llm-skills` picks up new releases. Releases are tagged `v*.*.*`; the latest tag is the source of truth.
 
 ### Claude Code (single SKILL.md, no plugin)
 
@@ -30,7 +30,7 @@ Drop the committed `SKILL.md` into your project's or user-wide skills directory:
 ```bash
 mkdir -p ~/.claude/skills/reasoning-framework
 curl -L \
-  https://raw.githubusercontent.com/ravenoak/llm-skills/main/skills/reasoning-framework/SKILL.md \
+  https://raw.githubusercontent.com/ravenoak/llm-skills/main/plugins/reasoning-framework/skills/reasoning-framework/SKILL.md \
   -o ~/.claude/skills/reasoning-framework/SKILL.md
 ```
 
@@ -57,7 +57,7 @@ task check                  # runs CI gate locally
 ## Layout
 
 - `spec/` — the canonical portable skill format (JSON Schema)
-- `skills/<id>/` — per-skill source + committed Claude artifacts
+- `plugins/<id>/` — per-skill plugin source + committed Claude artifacts (each is a standalone Claude Code plugin)
 - `tools/ts/` — `skillsmith` CLI (npm)
 - `tools/py/` — `llm-skills` CLI (PyPI)
 - `dist/` — build outputs for OpenAI and portable targets (gitignored)

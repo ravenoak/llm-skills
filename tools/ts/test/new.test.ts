@@ -12,11 +12,11 @@ describe("scaffoldSkill", () => {
   it("creates skill.json and body.md in the right place", async () => {
     await scaffoldSkill({ root: workspace, id: "new-skill" });
     const skillJson = JSON.parse(
-      readFileSync(join(workspace, "skills", "new-skill", "skill.json"), "utf8")
+      readFileSync(join(workspace, "plugins", "new-skill", "skill.json"), "utf8")
     );
     expect(skillJson.id).toBe("new-skill");
     expect(skillJson.specVersion).toBe("1");
-    expect(existsSync(join(workspace, "skills", "new-skill", "body.md"))).toBe(true);
+    expect(existsSync(join(workspace, "plugins", "new-skill", "body.md"))).toBe(true);
   });
 
   it("refuses to overwrite an existing skill directory", async () => {

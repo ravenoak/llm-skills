@@ -16,7 +16,7 @@ export async function scaffoldSkill(opts: { root: string; id: string }): Promise
   if (!ID_RE.test(opts.id)) {
     throw new Error(`invalid skill id: ${opts.id}`);
   }
-  const dir = resolve(opts.root, "skills", opts.id);
+  const dir = resolve(opts.root, "plugins", opts.id);
   if (await pathExists(dir)) {
     throw new Error(`skill ${opts.id} already exists at ${dir}`);
   }

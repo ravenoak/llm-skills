@@ -32,7 +32,7 @@ export function compileClaudeSkill(skill: SkillForCompile): TargetArtifact {
   frontmatterLines.push("---", "");
 
   return {
-    path: "SKILL.md",
+    path: `skills/${r.id}/SKILL.md`,
     contents: `${frontmatterLines.join("\n")}\n${skill.body}`
   };
 }

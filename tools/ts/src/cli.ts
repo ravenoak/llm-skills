@@ -1,6 +1,5 @@
 import { Command } from "commander";
 import { resolve } from "node:path";
-import { readFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import { loadSkills } from "./load.js";
 import { validateSkillDir } from "./validate.js";
@@ -12,44 +11,35 @@ import { repoRoot } from "./paths.js";
 
 export const version = "0.1.0";
 
+const MARKETPLACE_NAME = "ravenoak-llm-skills";
+const MARKETPLACE_DESCRIPTION =
+  "Pluralistic, multi-disciplinary reasoning skills for Claude Code.";
+
 interface RepoMeta {
-  name: string;
-  version: string;
-  description: string;
-  author: { name: string; email?: string };
+  marketplaceName: string;
+  marketplaceDescription: string;
   owner: { name: string; email?: string };
+  author: { name: string; email?: string };
   homepage?: string;
   repository?: string;
   license?: string;
-  keywords?: string[];
 }
 
-const DEFAULT_DESCRIPTION =
-  "Pluralistic, multi-disciplinary reasoning skills for Claude Code.";
-
-async function readRepoMeta(root: string): Promise<RepoMeta> {
-  let pkg: { version?: string; description?: string; keywords?: string[] } = {};
-  try {
-    pkg = JSON.parse(await readFile(resolve(root, "package.json"), "utf8")) as typeof pkg;
-  } catch {
-    // ok — fall through to defaults
-  }
+function readRepoMeta(): RepoMeta {
   const owner = { name: "ravenoak" };
   return {
-    name: "llm-skills",
-    version: pkg.version ?? "0.0.0",
-    description: pkg.description?.length ? pkg.description : DEFAULT_DESCRIPTION,
-    author: owner,
+    marketplaceName: MARKETPLACE_NAME,
+    marketplaceDescription: MARKETPLACE_DESCRIPTION,
     owner,
+    author: owner,
     homepage: "https://github.com/ravenoak/llm-skills",
     repository: "https://github.com/ravenoak/llm-skills",
-    license: "MIT",
-    ...(pkg.keywords && pkg.keywords.length > 0 ? { keywords: pkg.keywords } : {})
+    license: "MIT"
   };
 }
 
 async function runValidate(root: string): Promise<number> {
-  const skills = await loadSkills(resolve(root, "skills"));
+  const skills = await loadSkills(resolve(root, "plugins"));
   let failed = 0;
   for (const s of skills) {
     const r = await validateSkillDir(s.dir);
@@ -65,7 +55,7 @@ async function runValidate(root: string): Promise<number> {
 }
 
 async function runLint(root: string): Promise<number> {
-  const skills = await loadSkills(resolve(root, "skills"));
+  const skills = await loadSkills(resolve(root, "plugins"));
   let errors = 0;
   for (const s of skills) {
     const desc = (s.raw["description"] as string | undefined) ?? "";
@@ -85,8 +75,7 @@ async function runLint(root: string): Promise<number> {
 }
 
 async function runBuild(root: string): Promise<number> {
-  const meta = await readRepoMeta(root);
-  await buildAll({ root, repo: meta });
+  await buildAll({ root, repo: readRepoMeta() });
   return 0;
 }
 
@@ -123,11 +112,11 @@ export async function main(): Promise<number> {
   });
   program
     .command("new <id>")
-    .description("scaffold a new skill")
+    .description("scaffold a new skill plugin")
     .action(async (id: string) => {
       try {
         await scaffoldSkill({ root: repoRoot, id });
-        console.log(`Created skills/${id}/skill.json and body.md`);
+        console.log(`Created plugins/${id}/skill.json and body.md`);
       } catch (e) {
         console.error(`✗ ${(e as Error).message}`);
         exitCode = 1;
