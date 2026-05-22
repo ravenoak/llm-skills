@@ -3,18 +3,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Protocol
+from typing import Any
 
 from llm_skills.loader import Skill
-
-
-class _Messages(Protocol):
-    def create(self, **kwargs: Any) -> Any: ...
-
-
-class _Client(Protocol):
-    @property
-    def messages(self) -> _Messages: ...
 
 
 @dataclass(frozen=True)
