@@ -1,0 +1,80 @@
+name: release
+
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: write
+  id-token: write   # required for npm provenance + PyPI Trusted Publishing
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.meta.outputs.tag }}
+      version: ${{ steps.meta.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - id: meta
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+      - name: CHANGELOG must match tag
+        run: |
+          HEAD_HEADING=$(grep -m1 -E '^## \[[^]]+\]' CHANGELOG.md | sed -E 's/^## \[([^]]+)\].*/\1/')
+          if [ "$HEAD_HEADING" != "${{ steps.meta.outputs.version }}" ]; then
+            echo "CHANGELOG topmost heading is '$HEAD_HEADING'; expected '${{ steps.meta.outputs.version }}'"
+            exit 1
+          fi
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: 'npm', cache-dependency-path: tools/ts/package-lock.json }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.13' }
+      - uses: astral-sh/setup-uv@v3
+      - run: npm --prefix tools/ts ci
+      - run: npm --prefix tools/ts run build
+      - run: cd tools/py && uv sync
+      - name: Build all targets
+        run: node tools/ts/dist/cli.js build
+      - name: Package tarballs
+        run: |
+          mkdir -p release-artifacts
+          tar -czf release-artifacts/claude-plugin.tar.gz plugin.json marketplace.json skills $( [ -d commands ] && echo commands ) $( [ -d agents ] && echo agents ) $( [ -d hooks ] && echo hooks )
+          tar -czf release-artifacts/openai-bundle.tar.gz -C dist openai 2>/dev/null || tar -czf release-artifacts/openai-bundle.tar.gz --files-from=/dev/null
+          tar -czf release-artifacts/portable-bundle.tar.gz -C dist portable 2>/dev/null || tar -czf release-artifacts/portable-bundle.tar.gz --files-from=/dev/null
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: release-artifacts/*.tar.gz
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: tools/ts } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', registry-url: 'https://registry.npmjs.org' }
+      - run: npm ci
+      - run: npm run build
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-pypi:
+    needs: build
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: tools/py } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.13' }
+      - uses: astral-sh/setup-uv@v3
+      - run: uv sync
+      - run: uv build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: tools/py/dist
