@@ -3,5 +3,9 @@
   "version": "0.0.0",
   "description": "",
   "author": "ravenoak",
-  "skills": []
+  "skills": [
+    {
+      "source": "./skills/reasoning-framework"
+    }
+  ]
 }

@@ -1,5 +1,19 @@
 {
   "owner": "ravenoak",
   "repo": "llm-skills",
-  "plugins": []
+  "plugins": [
+    {
+      "name": "reasoning-framework",
+      "source": "./skills/reasoning-framework",
+      "description": "Use when stress-testing a conclusion, auditing a complex claim, mapping a multi-actor system, or spotting motivated reasoning — when rigor matters more than speed. Skip for time-pressured decisions, mechanical tasks, lookups, or when the user wants a recommendation rather than a tour of considerations.",
+      "version": "0.1.0",
+      "category": "reasoning",
+      "tags": [
+        "reasoning",
+        "analysis",
+        "critical-thinking",
+        "epistemics"
+      ]
+    }
+  ]
 }
