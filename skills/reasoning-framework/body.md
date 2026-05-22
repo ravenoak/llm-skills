@@ -1,16 +1,16 @@
 # Reasoning Framework
 
-This skill is for **analysis and validation** — stress-testing conclusions and mapping genuine complexity. It is not for discovery under time pressure, mechanical work, or decisions that need immediate action. It recruits a reasoning orientation that is already latent; it does not install one. If invoking it would slow a task without changing the conclusion, don't.
+This skill is for **analysis and validation** — stress-testing conclusions and mapping genuine complexity through a **pluralistic, multi-disciplinary** posture. It is not for discovery under time pressure, mechanical work, or decisions that need immediate action. It recruits a reasoning orientation that is already latent; it does not install one. If invoking it would slow a task without changing the conclusion, don't.
 
 ## Anti-theater check (first, always)
 
-Before applying anything below, answer plainly: **am I about to produce the appearance of rigor or its substance?** If the procedure would dress shallow analysis in deep-looking language — long lists, careful hedges, gestures at multiple "frameworks" — stop and answer the question directly. Naming a framework is not the same as using one. If the framework didn't change your conclusion, don't name it.
+Before applying anything below, answer plainly: **am I about to produce the appearance of rigor or its substance?** If the procedure would dress shallow analysis in deep-looking language — long lists, careful hedges, gestures at named "frameworks" — stop and answer the question directly. Naming a framework is not the same as using one. If the framework didn't change your conclusion, don't name it. This warning applies to every named source below.
 
 ## The orientation
 
-Use dialectical reasoning, tetralemma analysis, Socratic questioning, and systems thinking as **simultaneous recursive lenses** — each interrogating and reshaping the others. **Contradiction is productive tension, not error to resolve.** Emergent patterns visible only across lenses take priority over conclusions reached within any single one. Empiricism anchors throughout as a continuous constraint, not a final filter.
+Use **dialectical reasoning, tetralemma analysis, Socratic questioning, and systems thinking as simultaneous recursive lenses with continuous cross-method feedback** — insights from each method inform and reshape the others. Hold **holistic awareness of contextual relationships**: a claim is not just a proposition, it is embedded in time, system, and stakes. **Contradiction is productive tension, not error to resolve.** A **meta-analysis layer** attends to emergent patterns visible only across lenses; those cross-cutting patterns take priority over conclusions reached within any single lens. **Empiricism anchors throughout** as a continuous constraint, not a final filter.
 
-Pick the lenses the subject actually requires. Most questions need two or three; few need all of them.
+The lenses are not a checklist. Activate what the subject requires; most questions need two or three.
 
 ## How to apply (non-sequential — activate what the subject requires)
 
@@ -29,7 +29,7 @@ For a claim X, examine four positions:
 
 Dwell in genuine contradictions rather than rushing to resolve them. **Contradiction locates real complexity.** Resolving too quickly is how complexity gets hidden.
 
-### Practice elenchus
+### Practice elenchus (Socratic questioning)
 
 Ask:
 
@@ -38,7 +38,7 @@ Ask:
 - What does the world look like if I'm wrong about this?
 - Where in my own argument am I committing a fallacy I'd flag in someone else's?
 
-Watch especially for **reification** (treating an abstraction as a concrete entity) and **composition/division** (assuming what holds of the parts holds of the whole, or vice versa). Name the fallacy pattern when you see it in your own argument.
+Watch especially for **reification** (treating an abstraction as a concrete entity) and **composition / division** (assuming what holds of the parts holds of the whole, or vice versa). Name the fallacy pattern when you see it in your own argument.
 
 ### Trace systems
 
@@ -48,31 +48,52 @@ Follow second-order effects, feedback loops, missing actors, and leverage points
 - Who is in the system but absent from the framing?
 - Where are the feedback loops, and what are their time constants?
 - What's the smallest intervention that would change behavior at the system level?
+- What context surrounds the claim — political, historical, material — that the framing has stripped away?
 
-### Test for gauge invariance
+### Meta-analysis layer (gauge invariance across lenses)
 
-Run the conclusion through multiple frameworks and track what changes:
+Run the conclusion through multiple lenses and track what changes. **This is the meta-analysis layer the orientation depends on.**
 
 - **What survives reframing is likely tracking something real.**
 - **What changes under reframing is not error — it locates where the genuine complexity lives.**
-- The synthesis is the *translation structure between frameworks*, not a meta-conclusion sitting above them.
+- The synthesis is the *translation structure between lenses*, not a meta-conclusion sitting above them.
+- If a claim only holds in one framing, that finding is more important than the claim.
 
-If a claim only holds in one framing, that finding is more important than the claim.
+### Apply empirical discipline (Sagan's Baloney Detection Kit)
 
-### Audit the evidence (continuously, not at the end)
+Empiricism is not a filter applied at the end; it is a continuous constraint. Sagan's nine heuristics, compressed:
 
-- Proportion confidence to evidence quality.
-- Demand falsifiability; flag claims that can't fail.
-- Prefer simpler explanations when evidence is equal.
-- Flag motivated reasoning — in others' arguments and your own.
-- Verify that claims survive contact with contrary evidence.
-- Test conclusions by their consequences for those affected, not only by logical elegance or source authority.
+1. **Independent confirmation** of the "facts" wherever possible.
+2. **Substantive debate** among knowledgeable proponents of all sides — encourage it; don't substitute consensus for it.
+3. **Arguments from authority carry little weight.** Authorities have been wrong; track records matter, titles don't.
+4. **Spin more than one hypothesis.** If you have only one explanation, you haven't looked hard enough.
+5. **Don't get attached to a hypothesis because it's yours.** Test it as you would a stranger's.
+6. **Quantify** when you can — vague claims protect themselves from disproof.
+7. **Every link in the chain of argument must hold.** The conclusion is only as strong as the weakest link.
+8. **Occam's Razor** — prefer the simpler explanation when both fit the evidence equally well.
+9. **Falsifiability** — a claim that cannot in principle be shown wrong is not yet a claim about the world.
+
+Additionally: **flag motivated reasoning** in others' arguments and your own; **verify** that claims survive contact with contrary evidence; **test by consequences** to those affected, not only by logical elegance.
+
+### Calibrate against authority (Kalama Sutta)
+
+The Buddha's instruction to the Kalamas: do not accept a claim merely because of —
+
+- tradition or lineage;
+- rumor, popularity, or what "many people say";
+- scripture or written authority;
+- mere logic or inference in isolation;
+- speculation or reflection on views;
+- the speaker's credentials, reputation, or charisma;
+- the thought "this is our teacher."
+
+Accept it after observation and analysis show it agrees with reason **and is conducive to the good of those affected**. The Kalama posture is not skeptical paralysis — it is the refusal to defer judgment about consequences to any source other than the world itself.
 
 ### Calibrate honestly
 
-Distinguish:
+Distinguish, and label distinctly:
 
-- **Known** — robust evidence, multiple lines of confirmation
+- **Known** — robust evidence, multiple independent lines of confirmation
 - **Uncertain** — limited or contested evidence; plausible but unverified
 - **Tacit / intuitive** — felt but not yet propositional; mark it as such, don't pretend otherwise
 - **The more important question** — what the analysis surfaced that displaces the original question
@@ -83,7 +104,7 @@ Not everything worth knowing survives propositional expression. Acknowledge that
 
 - **If no genuine emergent insight exists across lenses, say so.** Do not fabricate coherence.
 - **If the question rests on a false premise, dissolve it.** Do not answer the wrong question more carefully.
-- **If you find yourself applying this framework mechanically** — producing the appearance of rigor rather than its substance — name that and stop.
+- **If you find yourself applying this framework mechanically** — producing the appearance of rigor rather than its substance — name that and stop. Naming Sagan or the Kalama Sutta is not a substitute for using them.
 - **Do not produce false precision.** Numerical estimates without basis are worse than honest ranges; ranges without basis are worse than "I don't know."
 - **Stop when self-interrogation stops yielding new information.** Recursion is not a virtue; insight is.
 

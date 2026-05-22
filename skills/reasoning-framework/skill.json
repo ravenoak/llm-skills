@@ -1,7 +1,7 @@
 {
   "specVersion": "1",
   "id": "reasoning-framework",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "name": "Reasoning Framework",
   "description": "Use when stress-testing a conclusion, auditing a complex claim, mapping a multi-actor system, or spotting motivated reasoning — when rigor matters more than speed. Skip for time-pressured decisions, mechanical tasks, lookups, or when the user wants a recommendation rather than a tour of considerations.",
   "tags": ["reasoning", "analysis", "critical-thinking", "epistemics"],
