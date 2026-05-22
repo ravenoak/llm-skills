@@ -21,7 +21,7 @@ In an interactive Claude Code session:
 /plugin install reasoning-framework@ravenoak-llm-skills
 ```
 
-Each skill is its own installable plugin — pick the ones you want, no all-or-nothing bundle. `/plugin marketplace update ravenoak-llm-skills` picks up new releases. Releases are tagged `v*.*.*`; the latest tag is the source of truth.
+Each skill is its own installable plugin, with its own version. That means skills ship on independent cadences — `reasoning-framework` can bump 0.2 → 0.3 without forcing the others to rev (and vice versa); installs of one don't pin the others. Pick what you want; nothing is all-or-nothing. `/plugin marketplace update ravenoak-llm-skills` picks up new releases. Releases are tagged `v*.*.*`; the latest tag is the source of truth.
 
 ### Claude Code (single SKILL.md, no plugin)
 
@@ -34,13 +34,13 @@ curl -L \
   -o ~/.claude/skills/reasoning-framework/SKILL.md
 ```
 
-### OpenAI custom GPTs / Apps
+### OpenAI custom GPTs / Apps (untested)
 
-For each skill that opts into the `openai-gpt` target, `dist/openai/<id>/` ships a `manifest.json` and `instructions.md`. Paste them into a custom GPT's configuration. See [`docs/installing.md`](./docs/installing.md#openai-custom-gpts--apps).
+For each skill that opts into the `openai-gpt` target, `dist/openai/<id>/` ships a `manifest.json` and `instructions.md`. Paste them into a custom GPT's configuration. See [`docs/installing.md`](./docs/installing.md#openai-custom-gpts--apps). **Status:** artifacts are emitted by the build but have not yet been confirmed end-to-end against the OpenAI GPT builder.
 
-### Portable format
+### Portable format (untested)
 
-The vendor-neutral artifact lives at `dist/portable/<id>/skill.json`; it validates against `spec/skill.schema.json`.
+The vendor-neutral artifact lives at `dist/portable/<id>/skill.json`; it validates against `spec/skill.schema.json`. **Status:** schema validates, but no external consumer has been tested.
 
 ## Using a skill
 

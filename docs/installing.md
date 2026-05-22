@@ -6,7 +6,7 @@ The repository lives at <https://github.com/ravenoak/llm-skills>. The Claude Cod
 
 ## Claude Code (marketplace, recommended)
 
-Every skill ships as its own Claude Code plugin under `plugins/<id>/`; the repo's `.claude-plugin/marketplace.json` lists each one separately. Install just the ones you want.
+Every skill ships as its own Claude Code plugin under `plugins/<id>/`, with its own `version`. Skills release on independent cadences — installing one does not pin the others — and the repo's `.claude-plugin/marketplace.json` lists each one separately. Pick what you want.
 
 ```text
 /plugin marketplace add ravenoak/llm-skills
@@ -50,7 +50,9 @@ curl -L \
 
 Claude Code auto-discovers skills in those locations on next session start.
 
-## OpenAI custom GPTs / Apps
+## OpenAI custom GPTs / Apps (untested)
+
+> **Status:** artifacts are emitted by the build but have not been independently confirmed against the live OpenAI GPT builder. Treat the steps below as the intended flow, not a verified path. If you try it, please open an issue with what worked and what didn't.
 
 For each skill that opts into the `openai-gpt` target, the build produces a bundle under `dist/openai/<id>/`:
 
@@ -65,9 +67,11 @@ To use these:
 4. Copy `name`, `description`, and `conversationStarters` from `manifest.json` into the matching fields.
 5. If the skill ships an `actionsSchema`, paste it into the **Actions** configuration.
 
-## Portable format
+## Portable format (untested)
 
-The vendor-neutral portable artifact lives at `dist/portable/<id>/skill.json`. It validates against `spec/skill.schema.json` and is intended for downstream tools that want a single canonical source.
+> **Status:** the artifact is emitted and validates against `spec/skill.schema.json`, but no external consumer has yet exercised it. Schema-validity is necessary, not sufficient.
+
+The vendor-neutral portable artifact lives at `dist/portable/<id>/skill.json`. It is intended for downstream tools that want a single canonical source.
 
 ```bash
 curl -L \

@@ -1,5 +1,7 @@
 # llm-skills — Multi-format LLM Skills Marketplace
 
+> **Historical design document.** Captures the original proposal from 2026-05-21. The shipped implementation has diverged in several places — most notably the repo is now a *marketplace of per-skill plugins* (`.claude-plugin/marketplace.json` lists one entry per skill at `./plugins/<id>`), not a single root-level Claude Code plugin; source files live under `plugins/<id>/` rather than `skills/<id>/`; and there is no root `plugin.json`. For the current shape, see [`docs/installing.md`](../../installing.md), [`docs/authoring.md`](../../authoring.md), [`docs/targets/claude-plugin.md`](../../targets/claude-plugin.md), and [`CHANGELOG.md`](../../../CHANGELOG.md). This doc is preserved for design-history reasons.
+
 **Status:** Approved design, ready for implementation planning
 **Date:** 2026-05-21
 **Author:** @ravenoak
