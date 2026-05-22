@@ -1,12 +1,5 @@
 {
   "owner": "ravenoak",
   "repo": "llm-skills",
-  "plugins": [
-    {
-      "name": "e2e-demo",
-      "source": "./skills/e2e-demo",
-      "description": "Use when verifying that skillsmith new and build wire up end-to-end.",
-      "version": "0.0.1"
-    }
-  ]
+  "plugins": []
 }
