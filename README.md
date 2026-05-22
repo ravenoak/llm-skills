@@ -18,12 +18,12 @@ In an interactive Claude Code session:
 
 ```text
 /plugin marketplace add ravenoak/llm-skills
-/plugin install reasoning-framework@llm-skills
+/plugin install llm-skills@llm-skills
 ```
 
-`/plugin marketplace update llm-skills` picks up new releases. Releases are tagged `v*.*.*`; the latest tag is the source of truth.
+This installs the `llm-skills` plugin, which bundles every shipping skill (currently `reasoning-framework`); each one activates from its own `description` trigger phrase. `/plugin marketplace update llm-skills` picks up new releases. Releases are tagged `v*.*.*`; the latest tag is the source of truth.
 
-### Claude Code (skill only, no marketplace)
+### Claude Code (single SKILL.md, no plugin)
 
 Drop the committed `SKILL.md` into your project's or user-wide skills directory:
 

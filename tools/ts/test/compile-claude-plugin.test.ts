@@ -2,28 +2,36 @@ import { describe, expect, it } from "vitest";
 import { compileClaudePluginManifest } from "../src/compile/claude-plugin.js";
 
 describe("compileClaudePluginManifest", () => {
-  it("emits a plugin.json combining repo metadata and enabled skills", () => {
+  it("emits .claude-plugin/plugin.json with repo metadata", () => {
     const out = compileClaudePluginManifest({
-      repo: { name: "llm-skills", version: "0.0.0", description: "test", author: "ravenoak" },
-      skills: [
-        { id: "demo", raw: { targets: { "claude-plugin": { enabled: true } } } }
-      ]
+      repo: {
+        name: "llm-skills",
+        version: "1.2.3",
+        description: "Pluralistic reasoning skills.",
+        author: { name: "ravenoak" },
+        license: "MIT"
+      }
     });
-    expect(out.path).toBe("plugin.json");
+    expect(out.path).toBe(".claude-plugin/plugin.json");
     const json = JSON.parse(out.contents);
     expect(json.name).toBe("llm-skills");
-    expect(json.skills).toEqual([{ source: "./skills/demo" }]);
+    expect(json.version).toBe("1.2.3");
+    expect(json.license).toBe("MIT");
+    expect(json).not.toHaveProperty("skills");
   });
 
-  it("omits skills that opt out of claude-plugin", () => {
+  it("omits optional fields when absent", () => {
     const out = compileClaudePluginManifest({
-      repo: { name: "llm-skills", version: "0.0.0", description: "test", author: "ravenoak" },
-      skills: [
-        { id: "demo", raw: { targets: { "claude-plugin": { enabled: false } } } },
-        { id: "other", raw: { targets: { "claude-plugin": { enabled: true } } } }
-      ]
+      repo: {
+        name: "llm-skills",
+        version: "0.1.0",
+        description: "x",
+        author: { name: "ravenoak" }
+      }
     });
     const json = JSON.parse(out.contents);
-    expect(json.skills).toEqual([{ source: "./skills/other" }]);
+    expect(json).not.toHaveProperty("homepage");
+    expect(json).not.toHaveProperty("license");
+    expect(json).not.toHaveProperty("keywords");
   });
 });

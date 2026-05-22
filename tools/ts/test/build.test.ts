@@ -32,23 +32,25 @@ beforeEach(() => {
 afterEach(() => rmSync(workspace, { recursive: true, force: true }));
 
 describe("buildAll", () => {
-  it("writes SKILL.md in-place and dist artifacts for non-Claude targets", async () => {
+  it("writes SKILL.md plus .claude-plugin/{plugin,marketplace}.json", async () => {
     await buildAll({
       root: workspace,
       repo: {
-        owner: "ravenoak",
-        repo: "llm-skills",
         name: "llm-skills",
         version: "0.0.0",
-        description: "x",
-        author: "ravenoak"
+        description: "Test marketplace.",
+        author: { name: "ravenoak" },
+        owner: { name: "ravenoak" }
       }
     });
     const skillMd = readFileSync(join(workspace, "skills", "demo", "SKILL.md"), "utf8");
     expect(skillMd).toContain("name: demo");
 
-    const pluginJson = JSON.parse(readFileSync(join(workspace, "plugin.json"), "utf8"));
-    expect(pluginJson.skills).toEqual([{ source: "./skills/demo" }]);
+    const pluginJson = JSON.parse(
+      readFileSync(join(workspace, ".claude-plugin", "plugin.json"), "utf8")
+    );
+    expect(pluginJson.name).toBe("llm-skills");
+    expect(pluginJson).not.toHaveProperty("skills");
 
     const openaiManifest = JSON.parse(
       readFileSync(join(workspace, "dist", "openai", "demo", "manifest.json"), "utf8")
@@ -60,7 +62,11 @@ describe("buildAll", () => {
     );
     expect(portable.body).toEqual({ inline: "Body.\n" });
 
-    const marketplace = JSON.parse(readFileSync(join(workspace, "marketplace.json"), "utf8"));
-    expect(marketplace.plugins[0].name).toBe("demo");
+    const marketplace = JSON.parse(
+      readFileSync(join(workspace, ".claude-plugin", "marketplace.json"), "utf8")
+    );
+    expect(marketplace.name).toBe("llm-skills");
+    expect(marketplace.plugins).toHaveLength(1);
+    expect(marketplace.plugins[0].source).toBe("./");
   });
 });

@@ -32,13 +32,13 @@ git commit -m "feat(my-skill): add my-skill"
 - Prose lint (`skillsmith lint`)
 - Build cleanliness (`git diff --exit-code` after `skillsmith build`)
 - TS and Python unit tests, types, and linters
-- `marketplace.json` is regenerated and identical to the committed copy
+- `.claude-plugin/{marketplace,plugin}.json` are regenerated and identical to the committed copy
 - Security: Semgrep, npm audit, pip-audit
 
 ## Conventions
 
 - Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`, `ci:`).
-- Never edit `marketplace.json` by hand — it is regenerated.
+- Never edit `.claude-plugin/{marketplace,plugin}.json` by hand — both are regenerated.
 - Body content always lives in a sibling file; never inlined in `skill.json`.
 - Overrides are whole-file replacements; no patch syntax.
 

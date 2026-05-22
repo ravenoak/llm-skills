@@ -13,39 +13,39 @@ import { repoRoot } from "./paths.js";
 export const version = "0.1.0";
 
 interface RepoMeta {
-  owner: string;
-  repo: string;
   name: string;
   version: string;
   description: string;
-  author: string;
+  author: { name: string; email?: string };
+  owner: { name: string; email?: string };
+  homepage?: string;
+  repository?: string;
+  license?: string;
+  keywords?: string[];
 }
 
+const DEFAULT_DESCRIPTION =
+  "Pluralistic, multi-disciplinary reasoning skills for Claude Code.";
+
 async function readRepoMeta(root: string): Promise<RepoMeta> {
+  let pkg: { version?: string; description?: string; keywords?: string[] } = {};
   try {
-    const pkg = JSON.parse(await readFile(resolve(root, "package.json"), "utf8")) as {
-      version?: string;
-      description?: string;
-      author?: string;
-    };
-    return {
-      owner: "ravenoak",
-      repo: "llm-skills",
-      name: "llm-skills",
-      version: pkg.version ?? "0.0.0",
-      description: pkg.description ?? "",
-      author: pkg.author ?? "ravenoak"
-    };
+    pkg = JSON.parse(await readFile(resolve(root, "package.json"), "utf8")) as typeof pkg;
   } catch {
-    return {
-      owner: "ravenoak",
-      repo: "llm-skills",
-      name: "llm-skills",
-      version: "0.0.0",
-      description: "",
-      author: "ravenoak"
-    };
+    // ok — fall through to defaults
   }
+  const owner = { name: "ravenoak" };
+  return {
+    name: "llm-skills",
+    version: pkg.version ?? "0.0.0",
+    description: pkg.description?.length ? pkg.description : DEFAULT_DESCRIPTION,
+    author: owner,
+    owner,
+    homepage: "https://github.com/ravenoak/llm-skills",
+    repository: "https://github.com/ravenoak/llm-skills",
+    license: "MIT",
+    ...(pkg.keywords && pkg.keywords.length > 0 ? { keywords: pkg.keywords } : {})
+  };
 }
 
 async function runValidate(root: string): Promise<number> {
