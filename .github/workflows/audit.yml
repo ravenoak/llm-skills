@@ -1,0 +1,41 @@
+name: audit
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'   # Mondays 09:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.13' }
+      - uses: astral-sh/setup-uv@v3
+      - run: npm --prefix tools/ts ci
+      - id: npm-audit
+        continue-on-error: true
+        run: npm --prefix tools/ts audit --audit-level=high --json | tee npm-audit.json
+      - run: cd tools/py && uv sync
+      - id: pip-audit
+        continue-on-error: true
+        run: cd tools/py && uv run pip-audit --strict --format json | tee ../../pip-audit.json
+      - uses: google/osv-scanner-action@v1
+        with: { scan-args: --recursive --skip-git ./ }
+        continue-on-error: true
+      - name: Open issue on failure
+        if: failure() || steps.npm-audit.outcome == 'failure' || steps.pip-audit.outcome == 'failure'
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: 'Weekly audit found issues'
+          content-filepath: |
+            npm-audit.json
+            pip-audit.json
+          labels: security, audit
