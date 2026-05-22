@@ -5,7 +5,7 @@ from llm_skills.draft import DraftConfig, drafter
 
 
 class _FakeClient:
-    def messages_create(self, **kwargs: Any) -> str:
+    def messages_create(self, **_kwargs: Any) -> str:
         return (
             '```json\n'
             '{"specVersion":"1","id":"new-skill","version":"0.0.1","name":"New",'

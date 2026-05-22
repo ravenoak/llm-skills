@@ -1,7 +1,7 @@
 {
   "include": ["tools/py/src", "tools/py/tests"],
-  "venvPath": "tools/py",
-  "venv": ".venv",
-  "pythonVersion": "3.13",
-  "extraPaths": ["tools/py/src"]
+  "exclude": ["**/__pycache__", "**/.venv", "**/node_modules"],
+  "extraPaths": ["tools/py/src"],
+  "pythonPath": "tools/py/.venv/bin/python",
+  "pythonVersion": "3.13"
 }
