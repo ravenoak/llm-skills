@@ -7,21 +7,35 @@ tasks:
       - npm --prefix tools/ts ci
       - cd tools/py && uv sync
 
+  build-ts:
+    desc: Build the skillsmith CLI bundle (internal helper).
+    cmds:
+      - npm --prefix tools/ts run build
+    sources:
+      - tools/ts/src/**/*.ts
+      - tools/ts/tsup.config.ts
+      - tools/ts/tsconfig.json
+      - tools/ts/package.json
+    generates:
+      - tools/ts/dist/cli.js
+
   validate:
     desc: Validate every skill manifest.
+    deps: [build-ts]
     cmds:
-      - npm --prefix tools/ts exec -- skillsmith validate
+      - node tools/ts/dist/cli.js validate
 
   lint:
     desc: Run prose lint over all skills.
+    deps: [build-ts]
     cmds:
-      - npm --prefix tools/ts exec -- skillsmith lint
+      - node tools/ts/dist/cli.js lint
 
   build:
     desc: Compile every target.
+    deps: [build-ts]
     cmds:
-      - npm --prefix tools/ts run build
-      - npm --prefix tools/ts exec -- skillsmith build
+      - node tools/ts/dist/cli.js build
 
   check:
     desc: Full CI gate (validate + lint + build + git-clean).
@@ -29,10 +43,11 @@ tasks:
       - npm --prefix tools/ts run typecheck
       - npm --prefix tools/ts run lint
       - npm --prefix tools/ts test
+      - npm --prefix tools/ts run build
       - cd tools/py && uv run ruff check
       - cd tools/py && uv run mypy
       - cd tools/py && uv run pytest
-      - npm --prefix tools/ts exec -- skillsmith check
+      - node tools/ts/dist/cli.js check
 
   eval:
     desc: Run evals (network calls; gated by LLM_SKILLS_RUN_EVALS=1).
