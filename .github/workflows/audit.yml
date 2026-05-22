@@ -32,7 +32,7 @@ jobs:
         continue-on-error: true
       - name: Open issue on failure
         if: failure() || steps.npm-audit.outcome == 'failure' || steps.pip-audit.outcome == 'failure'
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@v6
         with:
           title: 'Weekly audit found issues'
           content-filepath: |
