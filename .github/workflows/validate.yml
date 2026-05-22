@@ -15,7 +15,7 @@ jobs:
     defaults: { run: { working-directory: tools/ts } }
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with: { node-version: '24', cache: 'npm', cache-dependency-path: tools/ts/package-lock.json }
       - run: npm ci
       - run: npm run typecheck
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with: { node-version: '24' }
       - run: npx --yes ajv-cli@5 compile -s spec/skill.schema.json --spec=draft2020 --validate-formats=false
       - run: npx --yes ajv-cli@5 compile -s spec/marketplace-entry.schema.json --spec=draft2020 --validate-formats=false
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with: { node-version: '24' }
       - run: npm --prefix tools/ts ci
       - run: npm --prefix tools/ts audit --omit=dev
