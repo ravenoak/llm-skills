@@ -1,0 +1,67 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ts-check:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: tools/ts } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: 'npm', cache-dependency-path: tools/ts/package-lock.json }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - name: skillsmith check
+        working-directory: .
+        run: node tools/ts/dist/cli.js check
+
+  py-check:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: tools/py } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.13' }
+      - uses: astral-sh/setup-uv@v3
+      - run: uv sync
+      - run: uv run ruff check
+      - run: uv run mypy
+      - run: uv run pytest
+
+  schema-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24' }
+      - run: npx --yes ajv-cli@5 compile -s spec/skill.schema.json --spec=draft2020 --validate-formats=false
+      - run: npx --yes ajv-cli@5 compile -s spec/marketplace-entry.schema.json --spec=draft2020 --validate-formats=false
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24' }
+      - run: npm --prefix tools/ts ci
+      - run: npm --prefix tools/ts audit --omit=dev
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.13' }
+      - uses: astral-sh/setup-uv@v3
+      - run: cd tools/py && uv sync
+      - run: cd tools/py && uv run pip-audit --strict
+      - name: semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: auto
