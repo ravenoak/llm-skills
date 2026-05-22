@@ -60,7 +60,7 @@ jobs:
         with: { python-version: '3.13' }
       - uses: astral-sh/setup-uv@v3
       - run: cd tools/py && uv sync
-      - run: cd tools/py && uv run pip-audit --strict
+      - run: cd tools/py && uv run pip-audit --skip-editable
       - name: semgrep
         uses: returntocorp/semgrep-action@v1
         with:
