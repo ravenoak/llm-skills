@@ -5,11 +5,11 @@ import { compileClaudeSkill } from "./compile/claude-skill.js";
 import { compileClaudePluginManifest, type RepoMeta } from "./compile/claude-plugin.js";
 import { compileOpenAI } from "./compile/openai.js";
 import { compilePortable } from "./compile/portable.js";
-import { buildMarketplace } from "./marketplace.js";
+import { buildMarketplace, type MarketplaceRepoMeta } from "./marketplace.js";
 
 export interface BuildOptions {
   root: string;
-  repo: RepoMeta & { owner: string; repo: string };
+  repo: RepoMeta & MarketplaceRepoMeta;
 }
 
 async function writeArtifact(path: string, contents: string): Promise<void> {
@@ -42,27 +42,12 @@ export async function buildAll(opts: BuildOptions): Promise<void> {
     }
   }
 
-  const pluginManifest = compileClaudePluginManifest({
-    repo: opts.repo,
-    skills: skills.map(s => ({
-      id: s.id,
-      raw: s.raw as { targets?: { "claude-plugin"?: { enabled?: boolean; category?: string } } }
-    }))
-  });
+  const pluginManifest = compileClaudePluginManifest({ repo: opts.repo });
   await writeArtifact(resolve(opts.root, pluginManifest.path), pluginManifest.contents);
 
-  const marketplace = buildMarketplace({
-    repo: { owner: opts.repo.owner, repo: opts.repo.repo },
-    skills: skills.map(s => ({
-      id: s.id,
-      raw: s.raw as {
-        id: string;
-        version: string;
-        description: string;
-        tags?: string[];
-        targets?: { "claude-plugin"?: { enabled?: boolean; category?: string } };
-      }
-    }))
-  });
-  await writeArtifact(resolve(opts.root, "marketplace.json"), `${JSON.stringify(marketplace, null, 2)}\n`);
+  const marketplace = buildMarketplace({ repo: opts.repo });
+  await writeArtifact(
+    resolve(opts.root, ".claude-plugin", "marketplace.json"),
+    `${JSON.stringify(marketplace, null, 2)}\n`
+  );
 }

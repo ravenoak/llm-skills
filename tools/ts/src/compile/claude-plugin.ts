@@ -1,33 +1,38 @@
 import type { TargetArtifact } from "./types.js";
 
+export interface PluginAuthor {
+  name: string;
+  email?: string;
+  url?: string;
+}
+
 export interface RepoMeta {
   name: string;
   version: string;
   description: string;
-  author: string;
-}
-
-export interface MinimalSkillForPlugin {
-  id: string;
-  raw: { targets?: { "claude-plugin"?: { enabled?: boolean; category?: string } } };
+  author: PluginAuthor;
+  homepage?: string;
+  repository?: string;
+  license?: string;
+  keywords?: string[];
 }
 
 export function compileClaudePluginManifest(input: {
   repo: RepoMeta;
-  skills: MinimalSkillForPlugin[];
 }): TargetArtifact {
-  const enabled = input.skills.filter(
-    s => s.raw.targets?.["claude-plugin"]?.enabled === true
-  );
+  const r = input.repo;
   const manifest = {
-    name: input.repo.name,
-    version: input.repo.version,
-    description: input.repo.description,
-    author: input.repo.author,
-    skills: enabled.map(s => ({ source: `./skills/${s.id}` }))
+    name: r.name,
+    description: r.description,
+    version: r.version,
+    author: r.author,
+    ...(r.homepage ? { homepage: r.homepage } : {}),
+    ...(r.repository ? { repository: r.repository } : {}),
+    ...(r.license ? { license: r.license } : {}),
+    ...(r.keywords && r.keywords.length > 0 ? { keywords: r.keywords } : {})
   };
   return {
-    path: "plugin.json",
+    path: ".claude-plugin/plugin.json",
     contents: `${JSON.stringify(manifest, null, 2)}\n`
   };
 }

@@ -2,36 +2,38 @@ import { describe, expect, it } from "vitest";
 import { buildMarketplace } from "../src/marketplace.js";
 
 describe("buildMarketplace", () => {
-  it("emits an entry per skill with claude-plugin enabled", () => {
+  it("emits a single self-referencing plugin entry", () => {
     const json = buildMarketplace({
-      repo: { owner: "ravenoak", repo: "llm-skills" },
-      skills: [
-        {
-          id: "demo",
-          raw: {
-            id: "demo",
-            version: "1.2.3",
-            description: "Use when wiring up the marketplace.",
-            tags: ["test"],
-            targets: { "claude-plugin": { enabled: true, category: "developer-tools" } }
-          }
-        },
-        {
-          id: "skipped",
-          raw: {
-            id: "skipped",
-            version: "0.0.1",
-            description: "Use when we should not appear in marketplace.json.",
-            targets: { "claude-plugin": { enabled: false } }
-          }
-        }
-      ]
+      repo: {
+        name: "llm-skills",
+        version: "1.2.3",
+        description: "Pluralistic reasoning skills for Claude Code.",
+        owner: { name: "ravenoak" },
+        license: "MIT"
+      }
     });
+    expect(json.name).toBe("llm-skills");
+    expect(json.owner.name).toBe("ravenoak");
     expect(json.plugins).toHaveLength(1);
-    const first = json.plugins[0];
-    expect(first).toBeDefined();
-    expect(first!.name).toBe("demo");
-    expect(first!.source).toBe("./skills/demo");
-    expect(first!.category).toBe("developer-tools");
+    const plugin = json.plugins[0]!;
+    expect(plugin.name).toBe("llm-skills");
+    expect(plugin.version).toBe("1.2.3");
+    expect(plugin.source).toBe("./");
+    expect(plugin.license).toBe("MIT");
+  });
+
+  it("omits optional fields when absent", () => {
+    const json = buildMarketplace({
+      repo: {
+        name: "llm-skills",
+        version: "0.1.0",
+        description: "x",
+        owner: { name: "ravenoak" }
+      }
+    });
+    const plugin = json.plugins[0]!;
+    expect(plugin).not.toHaveProperty("homepage");
+    expect(plugin).not.toHaveProperty("license");
+    expect(plugin).not.toHaveProperty("keywords");
   });
 });

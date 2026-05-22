@@ -1,48 +1,56 @@
-export interface MarketplaceRepo {
-  owner: string;
-  repo: string;
+export interface MarketplaceOwner {
+  name: string;
+  email?: string;
+  url?: string;
 }
 
-export interface MarketplaceSkill {
-  id: string;
-  raw: {
-    id: string;
-    version: string;
-    description: string;
-    tags?: string[];
-    targets?: { "claude-plugin"?: { enabled?: boolean; category?: string } };
-  };
+export interface MarketplaceRepoMeta {
+  name: string;
+  version: string;
+  description: string;
+  owner: MarketplaceOwner;
+  homepage?: string;
+  repository?: string;
+  license?: string;
+  keywords?: string[];
 }
 
 export interface MarketplaceJson {
-  owner: string;
-  repo: string;
+  name: string;
+  description: string;
+  owner: MarketplaceOwner;
   plugins: Array<{
     name: string;
-    source: string;
     description: string;
     version: string;
-    category?: string;
-    tags?: string[];
+    source: string;
+    author: MarketplaceOwner;
+    homepage?: string;
+    repository?: string;
+    license?: string;
+    keywords?: string[];
   }>;
 }
 
 export function buildMarketplace(input: {
-  repo: MarketplaceRepo;
-  skills: MarketplaceSkill[];
+  repo: MarketplaceRepoMeta;
 }): MarketplaceJson {
-  const plugins = input.skills
-    .filter(s => s.raw.targets?.["claude-plugin"]?.enabled === true)
-    .map(s => {
-      const category = s.raw.targets?.["claude-plugin"]?.category;
-      return {
-        name: s.id,
-        source: `./skills/${s.id}`,
-        description: s.raw.description,
-        version: s.raw.version,
-        ...(category ? { category } : {}),
-        ...(s.raw.tags && s.raw.tags.length > 0 ? { tags: s.raw.tags } : {})
-      };
-    });
-  return { owner: input.repo.owner, repo: input.repo.repo, plugins };
+  const r = input.repo;
+  const plugin = {
+    name: r.name,
+    description: r.description,
+    version: r.version,
+    source: "./",
+    author: r.owner,
+    ...(r.homepage ? { homepage: r.homepage } : {}),
+    ...(r.repository ? { repository: r.repository } : {}),
+    ...(r.license ? { license: r.license } : {}),
+    ...(r.keywords && r.keywords.length > 0 ? { keywords: r.keywords } : {})
+  };
+  return {
+    name: r.name,
+    description: r.description,
+    owner: r.owner,
+    plugins: [plugin]
+  };
 }
