@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.13' }
-      - uses: astral-sh/setup-uv@v3
+      - uses: astral-sh/setup-uv@v7
       - run: uv sync
       - run: uv run ruff check
       - run: uv run mypy
@@ -58,7 +58,7 @@ jobs:
       - run: npm --prefix tools/ts audit --omit=dev
       - uses: actions/setup-python@v5
         with: { python-version: '3.13' }
-      - uses: astral-sh/setup-uv@v3
+      - uses: astral-sh/setup-uv@v7
       - run: cd tools/py && uv sync
       - run: cd tools/py && uv run pip-audit --skip-editable
       - name: semgrep
