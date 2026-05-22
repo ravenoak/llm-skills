@@ -47,6 +47,20 @@ jobs:
         with: { node-version: '24' }
       - run: npx --yes ajv-cli@5 compile -s spec/skill.schema.json --spec=draft2020 --validate-formats=false
       - run: npx --yes ajv-cli@5 compile -s spec/marketplace-entry.schema.json --spec=draft2020 --validate-formats=false
+      - name: validate emitted marketplace entries against the schema
+        run: |
+          set -euo pipefail
+          tmp=$(mktemp -d)
+          # ajv-cli reads each -d file as one entry; split the array first.
+          jq -c '.plugins[]' .claude-plugin/marketplace.json | nl -ba | while read -r n line; do
+            printf '%s\n' "$line" > "$tmp/entry-$n.json"
+          done
+          for f in "$tmp"/entry-*.json; do
+            npx --yes ajv-cli@5 validate \
+              -s spec/marketplace-entry.schema.json \
+              --spec=draft2020 --validate-formats=false \
+              -d "$f"
+          done
 
   security:
     runs-on: ubuntu-latest

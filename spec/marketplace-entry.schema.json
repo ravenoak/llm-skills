@@ -24,7 +24,6 @@
     "repository": { "type": "string" },
     "license":    { "type": "string" },
     "keywords":   { "type": "array", "items": { "type": "string" } },
-    "category":   { "type": "string" },
-    "tags":       { "type": "array", "items": { "type": "string" } }
+    "category":   { "type": "string" }
   }
 }

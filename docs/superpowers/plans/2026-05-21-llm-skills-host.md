@@ -1,5 +1,7 @@
 # llm-skills Implementation Plan
 
+> **Historical plan.** This 26-task plan executed the original 2026-05-21 design. The shipped layout has since diverged — most notably `skills/` was renamed to `plugins/`, each skill ships as its own per-skill Claude Code plugin, and the root `plugin.json` was removed. Read this for the original sequencing and rationale, not for current paths. See [`CHANGELOG.md`](../../../CHANGELOG.md) and [`docs/installing.md`](../../installing.md) for the current shape.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Stand up the `llm-skills` polyglot monorepo: portable skill schema, `skillsmith` TS CLI, `llm-skills` Python CLI, Taskfile orchestration, CI, and release pipeline. No shipping skills in this pass — only structure and tooling.
