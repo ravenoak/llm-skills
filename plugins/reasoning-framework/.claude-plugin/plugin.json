@@ -1,0 +1,17 @@
+{
+  "name": "reasoning-framework",
+  "description": "Use when stress-testing a conclusion, auditing a complex claim, mapping a multi-actor system, or spotting motivated reasoning — when rigor matters more than speed. Skip for time-pressured decisions, mechanical tasks, lookups, or when the user wants a recommendation rather than a tour of considerations.",
+  "version": "0.2.0",
+  "author": {
+    "name": "ravenoak"
+  },
+  "homepage": "https://github.com/ravenoak/llm-skills",
+  "repository": "https://github.com/ravenoak/llm-skills",
+  "license": "MIT",
+  "keywords": [
+    "reasoning",
+    "analysis",
+    "critical-thinking",
+    "epistemics"
+  ]
+}

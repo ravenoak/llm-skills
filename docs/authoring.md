@@ -1,6 +1,6 @@
 # Authoring a skill
 
-A skill is a directory under `skills/` containing source files (and, after `task build`, a committed `SKILL.md`).
+A skill is a directory under `plugins/` that doubles as a standalone Claude Code plugin. It contains source files (and, after `task build`, committed Claude Code artifacts).
 
 ## Scaffold
 
@@ -11,7 +11,7 @@ npx --prefix tools/ts skillsmith new my-skill
 This creates:
 
 ```
-skills/my-skill/
+plugins/my-skill/
 ├── skill.json    # source; validates against spec/skill.schema.json
 └── body.md       # canonical body
 ```
@@ -24,7 +24,7 @@ Each skill opts in to the targets it supports via the `targets` block. The scaff
 
 ## Overrides
 
-If a target needs a different body, drop a file at `skills/my-skill/overrides/<target>.md` and reference it in `skill.json#overrides`:
+If a target needs a different body, drop a file at `plugins/my-skill/overrides/<target>.md` and reference it in `skill.json#overrides`:
 
 ```jsonc
 "overrides": {
@@ -38,8 +38,8 @@ Overrides are whole-file replacements. No patch syntax.
 
 ```bash
 task check       # validate + lint + build + git-clean
-git add skills/my-skill
+git add plugins/my-skill
 git commit -m "feat(my-skill): add my-skill"
 ```
 
-The `task check` step ensures the committed `SKILL.md` matches what the builder would produce. CI will fail PRs where these drift.
+`task check` runs the builder and asserts that the committed Claude artifacts under `plugins/my-skill/` (`.claude-plugin/plugin.json` and `skills/my-skill/SKILL.md`) match what the builder would produce, and that the root `.claude-plugin/marketplace.json` lists the new plugin. CI will fail PRs where any of these drift.

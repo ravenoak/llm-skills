@@ -17,5 +17,5 @@ function findRepoRoot(start: string): string {
 
 export const repoRoot = findRepoRoot(here);
 export const specDir = resolve(repoRoot, "spec");
-export const skillsDir = resolve(repoRoot, "skills");
+export const pluginsDir = resolve(repoRoot, "plugins");
 export const distDir = resolve(repoRoot, "dist");

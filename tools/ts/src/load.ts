@@ -10,17 +10,17 @@ export interface LoadedSkill {
   bodyPath: string;
 }
 
-export async function loadSkills(skillsDir: string): Promise<LoadedSkill[]> {
+export async function loadSkills(pluginsDir: string): Promise<LoadedSkill[]> {
   let entries: string[];
   try {
-    entries = await readdir(skillsDir);
+    entries = await readdir(pluginsDir);
   } catch {
     return [];
   }
   const out: LoadedSkill[] = [];
   for (const name of entries) {
     if (name.startsWith(".")) continue;
-    const dir = resolve(skillsDir, name);
+    const dir = resolve(pluginsDir, name);
     const parsed = await parseSkill(dir);
     const bodyPath = parsed.body.path ?? parsed.body.template;
     if (!bodyPath) continue;

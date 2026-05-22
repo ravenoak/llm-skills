@@ -2,27 +2,25 @@
 
 `llm-skills` is a multi-format registry. The same source skill compiles to several runtimes, and how you install it depends on which runtime you're using. This page covers all supported install paths.
 
-The repository lives at <https://github.com/ravenoak/llm-skills>.
+The repository lives at <https://github.com/ravenoak/llm-skills>. The Claude Code marketplace is namespaced as **`ravenoak-llm-skills`** to avoid collisions with marketplaces of the same short name.
 
-## Claude Code (marketplace)
+## Claude Code (marketplace, recommended)
 
-The Claude Code marketplace is the recommended install path. The repo is itself a single Claude Code plugin (`llm-skills`) that bundles every shipping skill; `.claude-plugin/marketplace.json` is the marketplace index that points at the plugin.
-
-In an interactive Claude Code session:
+Every skill ships as its own Claude Code plugin under `plugins/<id>/`; the repo's `.claude-plugin/marketplace.json` lists each one separately. Install just the ones you want.
 
 ```text
 /plugin marketplace add ravenoak/llm-skills
-/plugin install llm-skills@llm-skills
+/plugin install reasoning-framework@ravenoak-llm-skills
 ```
 
-The plugin is the bundle; individual skills (currently `reasoning-framework`) are auto-discovered from `skills/<id>/SKILL.md` and activate from their own `description` trigger phrase. There is no per-skill install command.
+To install everything in the marketplace, run `/plugin install` for each one. (There is intentionally no meta-bundle plugin: it makes the install surface ambiguous, and the per-plugin pattern matches every Anthropic-shipped marketplace.)
 
 To list and update later:
 
 ```text
 /plugin marketplace list
-/plugin marketplace update llm-skills
-/plugin install llm-skills@llm-skills
+/plugin marketplace update ravenoak-llm-skills
+/plugin install <skill>@ravenoak-llm-skills
 ```
 
 You can also add the marketplace by Git URL or local checkout:
@@ -34,19 +32,19 @@ You can also add the marketplace by Git URL or local checkout:
 
 ## Claude Code (single SKILL.md, no plugin)
 
-If you only want one skill and don't want to install the plugin, copy that skill's committed `SKILL.md` into your project's or user-wide skills directory:
+If you only want one skill and don't want to install a plugin, copy that skill's committed `SKILL.md` into your project's or user-wide skills directory:
 
 ```bash
 # Per-project
 mkdir -p .claude/skills/reasoning-framework
 curl -L \
-  https://raw.githubusercontent.com/ravenoak/llm-skills/main/skills/reasoning-framework/SKILL.md \
+  https://raw.githubusercontent.com/ravenoak/llm-skills/main/plugins/reasoning-framework/skills/reasoning-framework/SKILL.md \
   -o .claude/skills/reasoning-framework/SKILL.md
 
 # Or user-wide
 mkdir -p ~/.claude/skills/reasoning-framework
 curl -L \
-  https://raw.githubusercontent.com/ravenoak/llm-skills/main/skills/reasoning-framework/SKILL.md \
+  https://raw.githubusercontent.com/ravenoak/llm-skills/main/plugins/reasoning-framework/skills/reasoning-framework/SKILL.md \
   -o ~/.claude/skills/reasoning-framework/SKILL.md
 ```
 
@@ -82,12 +80,12 @@ Consumers may translate this into their own runtime format; the schema is stable
 ## Verifying an install
 
 - **Claude Code skill:** start a new session and ask a question that matches the skill's trigger phrase. Claude announces skills it invokes ("Using `reasoning-framework` to …").
-- **Claude Code marketplace:** `/plugin marketplace list` shows `llm-skills` and `/plugin list` shows the installed `llm-skills` plugin.
+- **Claude Code marketplace:** `/plugin marketplace list` shows `ravenoak-llm-skills` and `/plugin list` shows installed skills.
 - **OpenAI GPT:** the configured conversation starters appear on the GPT's landing screen.
 
 ## Updating
 
-- Marketplace: `/plugin marketplace update llm-skills` then `/plugin install llm-skills@llm-skills` to pick up the new version.
+- Marketplace: `/plugin marketplace update ravenoak-llm-skills` then `/plugin install <skill>@ravenoak-llm-skills` to pick up the new version.
 - Direct `SKILL.md` copy: re-download from `main` (or a tag) and overwrite the local file.
 - OpenAI GPT: download the new release bundle and re-paste the changed sections.
 
@@ -95,6 +93,6 @@ Releases are tagged `v*.*.*`; the latest tag is the source of truth.
 
 ## Uninstalling
 
-- Claude Code: `/plugin uninstall llm-skills@llm-skills`, then optionally `/plugin marketplace remove llm-skills`.
+- Claude Code: `/plugin uninstall <skill>@ravenoak-llm-skills`, then optionally `/plugin marketplace remove ravenoak-llm-skills`.
 - Direct copy: delete the relevant `SKILL.md` (or its parent directory) from your skills folder.
 - OpenAI GPT: delete or unpublish the GPT from the OpenAI dashboard.

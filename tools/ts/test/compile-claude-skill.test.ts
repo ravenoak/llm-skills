@@ -18,7 +18,7 @@ const skill = {
 describe("compileClaudeSkill", () => {
   it("emits SKILL.md with frontmatter and body", () => {
     const out = compileClaudeSkill(skill);
-    expect(out.path).toBe("SKILL.md");
+    expect(out.path).toBe("skills/demo/SKILL.md");
     expect(out.contents).toContain("name: demo");
     expect(out.contents).toContain("description: Use when verifying the Claude skill compiler.");
     expect(out.contents).toContain("allowed-tools:");
