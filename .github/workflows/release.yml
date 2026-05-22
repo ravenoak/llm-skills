@@ -46,7 +46,7 @@ jobs:
           tar -czf release-artifacts/claude-plugin.tar.gz plugin.json marketplace.json skills $( [ -d commands ] && echo commands ) $( [ -d agents ] && echo agents ) $( [ -d hooks ] && echo hooks )
           tar -czf release-artifacts/openai-bundle.tar.gz -C dist openai 2>/dev/null || tar -czf release-artifacts/openai-bundle.tar.gz --files-from=/dev/null
           tar -czf release-artifacts/portable-bundle.tar.gz -C dist portable 2>/dev/null || tar -czf release-artifacts/portable-bundle.tar.gz --files-from=/dev/null
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           files: release-artifacts/*.tar.gz
 
