@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: tools/ts } }
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with: { node-version: '24', cache: 'npm', cache-dependency-path: tools/ts/package-lock.json }
       - run: npm ci
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: tools/py } }
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with: { python-version: '3.13' }
       - uses: astral-sh/setup-uv@v7
@@ -42,7 +42,7 @@ jobs:
   schema-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with: { node-version: '24' }
       - run: npx --yes ajv-cli@5 compile -s spec/skill.schema.json --spec=draft2020 --validate-formats=false
@@ -65,7 +65,7 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with: { node-version: '24' }
       - run: npm --prefix tools/ts ci
