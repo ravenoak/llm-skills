@@ -31,7 +31,7 @@ jobs:
     defaults: { run: { working-directory: tools/py } }
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with: { python-version: '3.13' }
       - uses: astral-sh/setup-uv@v7
       - run: uv sync
@@ -70,7 +70,7 @@ jobs:
         with: { node-version: '24' }
       - run: npm --prefix tools/ts ci
       - run: npm --prefix tools/ts audit --omit=dev
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with: { python-version: '3.13' }
       - uses: astral-sh/setup-uv@v7
       - run: cd tools/py && uv sync
