@@ -25,3 +25,6 @@ dist/reports/
 .idea/
 .vscode/
 .claude/settings.local.json
+
+# Local git worktrees
+.worktrees/

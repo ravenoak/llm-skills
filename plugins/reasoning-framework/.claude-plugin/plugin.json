@@ -1,7 +1,7 @@
 {
   "name": "reasoning-framework",
-  "description": "Use when stress-testing a conclusion, auditing a complex claim, mapping a multi-actor system, or spotting motivated reasoning — when rigor matters more than speed. Skip for time-pressured decisions, mechanical tasks, lookups, or when the user wants a recommendation rather than a tour of considerations.",
-  "version": "0.2.0",
+  "description": "Use when stress-testing a conclusion, auditing a complex claim, mapping a multi-actor system, or spotting motivated reasoning in a single recursive pass — when rigor matters more than speed. Skip for time-pressured decisions, mechanical tasks, lookups, or when the user wants a recommendation rather than a tour of considerations. For a decision with genuine multi-stakeholder stakes spanning several teams, or organization-scale, hard-to-reverse consequences, use reasoning-swarm instead — its independent-parallel-agent dispatch is worth the extra cost there.",
+  "version": "0.3.0",
   "author": {
     "name": "ravenoak"
   },

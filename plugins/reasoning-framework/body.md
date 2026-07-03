@@ -2,6 +2,8 @@
 
 This skill is for **analysis and validation** — stress-testing conclusions and mapping genuine complexity through a **pluralistic, multi-disciplinary** posture. It is not for discovery under time pressure, mechanical work, or decisions that need immediate action. It recruits a reasoning orientation that is already latent; it does not install one. If invoking it would slow a task without changing the conclusion, don't.
 
+It runs its lenses as **simultaneous recursive feedback in one context** — each lens reshapes the others as it goes. For a decision with genuine multi-stakeholder stakes across several teams, or organization-scale, hard-to-reverse consequences, use `reasoning-swarm` instead: it runs the same lenses as **independent** parallel agents and reconciles at a single synthesis step, trading recursive cross-pollination for a structural guard against anchoring.
+
 ## Anti-theater check (first, always)
 
 Before applying anything below, answer plainly: **am I about to produce the appearance of rigor or its substance?** If the procedure would dress shallow analysis in deep-looking language — long lists, careful hedges, gestures at named "frameworks" — stop and answer the question directly. Naming a framework is not the same as using one. If the framework didn't change your conclusion, don't name it. This warning applies to every named source below.

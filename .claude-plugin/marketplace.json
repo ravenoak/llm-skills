@@ -7,8 +7,8 @@
   "plugins": [
     {
       "name": "reasoning-framework",
-      "description": "Use when stress-testing a conclusion, auditing a complex claim, mapping a multi-actor system, or spotting motivated reasoning — when rigor matters more than speed. Skip for time-pressured decisions, mechanical tasks, lookups, or when the user wants a recommendation rather than a tour of considerations.",
-      "version": "0.2.0",
+      "description": "Use when stress-testing a conclusion, auditing a complex claim, mapping a multi-actor system, or spotting motivated reasoning in a single recursive pass — when rigor matters more than speed. Skip for time-pressured decisions, mechanical tasks, lookups, or when the user wants a recommendation rather than a tour of considerations. For a decision with genuine multi-stakeholder stakes spanning several teams, or organization-scale, hard-to-reverse consequences, use reasoning-swarm instead — its independent-parallel-agent dispatch is worth the extra cost there.",
+      "version": "0.3.0",
       "source": "./plugins/reasoning-framework",
       "author": {
         "name": "ravenoak"
@@ -20,6 +20,26 @@
         "reasoning",
         "analysis",
         "critical-thinking",
+        "epistemics"
+      ],
+      "category": "reasoning"
+    },
+    {
+      "name": "reasoning-swarm",
+      "description": "Use when a decision or proposal has genuine multi-stakeholder stakes, spans multiple teams, or carries organization-scale or hard-to-reverse consequences — build-vs-buy calls, architecture decisions affecting several teams, policy with systemic impact, or when the user explicitly wants independent parallel takes stress-tested against each other rather than one recursive pass. Skip for single-claim analysis or solo stress-testing (use reasoning-framework instead), time-pressured decisions, mechanical tasks, or when a recommendation is wanted rather than a tour of considerations.",
+      "version": "0.1.0",
+      "source": "./plugins/reasoning-swarm",
+      "author": {
+        "name": "ravenoak"
+      },
+      "homepage": "https://github.com/ravenoak/llm-skills",
+      "repository": "https://github.com/ravenoak/llm-skills",
+      "license": "MIT",
+      "keywords": [
+        "reasoning",
+        "multi-agent",
+        "parallel-agents",
+        "analysis",
         "epistemics"
       ],
       "category": "reasoning"
