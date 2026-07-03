@@ -1,11 +1,13 @@
 ---
 name: reasoning-framework
-description: Use when stress-testing a conclusion, auditing a complex claim, mapping a multi-actor system, or spotting motivated reasoning — when rigor matters more than speed. Skip for time-pressured decisions, mechanical tasks, lookups, or when the user wants a recommendation rather than a tour of considerations.
+description: Use when stress-testing a conclusion, auditing a complex claim, mapping a multi-actor system, or spotting motivated reasoning in a single recursive pass — when rigor matters more than speed. Skip for time-pressured decisions, mechanical tasks, lookups, or when the user wants a recommendation rather than a tour of considerations. For a decision with genuine multi-stakeholder stakes spanning several teams, or organization-scale, hard-to-reverse consequences, use reasoning-swarm instead — its independent-parallel-agent dispatch is worth the extra cost there.
 ---
 
 # Reasoning Framework
 
 This skill is for **analysis and validation** — stress-testing conclusions and mapping genuine complexity through a **pluralistic, multi-disciplinary** posture. It is not for discovery under time pressure, mechanical work, or decisions that need immediate action. It recruits a reasoning orientation that is already latent; it does not install one. If invoking it would slow a task without changing the conclusion, don't.
+
+It runs its lenses as **simultaneous recursive feedback in one context** — each lens reshapes the others as it goes. For a decision with genuine multi-stakeholder stakes across several teams, or organization-scale, hard-to-reverse consequences, use `reasoning-swarm` instead: it runs the same lenses as **independent** parallel agents and reconciles at a single synthesis step, trading recursive cross-pollination for a structural guard against anchoring.
 
 ## Anti-theater check (first, always)
 
