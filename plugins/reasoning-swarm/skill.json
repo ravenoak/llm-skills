@@ -1,0 +1,23 @@
+{
+  "specVersion": "1",
+  "id": "reasoning-swarm",
+  "version": "0.1.0",
+  "name": "Reasoning Swarm",
+  "description": "Use when a decision or proposal has genuine multi-stakeholder stakes, spans multiple teams, or carries organization-scale or hard-to-reverse consequences — build-vs-buy calls, architecture decisions affecting several teams, policy with systemic impact, or when the user explicitly wants independent parallel takes stress-tested against each other rather than one recursive pass. Skip for single-claim analysis or solo stress-testing (use reasoning-framework instead), time-pressured decisions, mechanical tasks, or when a recommendation is wanted rather than a tour of considerations.",
+  "tags": ["reasoning", "multi-agent", "parallel-agents", "analysis", "epistemics"],
+  "body": { "path": "body.md" },
+  "targets": {
+    "claude-skill": { "enabled": true },
+    "claude-plugin": { "enabled": true, "category": "reasoning" },
+    "openai-gpt": {
+      "enabled": true,
+      "conversationStarters": [
+        "Get independent takes on this decision: …",
+        "Should we build or buy for …?",
+        "Stress-test this proposal from several independent angles: …",
+        "What am I missing on this org-wide decision?"
+      ]
+    },
+    "portable": { "enabled": true }
+  }
+}

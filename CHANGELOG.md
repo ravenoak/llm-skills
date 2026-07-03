@@ -8,6 +8,7 @@ Until the first tagged release, "version" refers to the marketplace's layout/sch
 
 ### Added
 - `reasoning-framework` skill (v0.2.0) — pluralistic, multi-disciplinary reasoning lens.
+- `reasoning-swarm` skill (v0.1.0) — parallel independent-agent dispatch with dialectical synthesis; the independence-wager sibling of `reasoning-framework` (which instead runs lenses as simultaneous recursive feedback in one context). For multi-stakeholder or organization-scale decisions where the cost of independent parallel takes is worth it.
 - `docs/installing.md` covering every install target (Claude Code marketplace, single SKILL.md copy, OpenAI custom GPTs, portable format).
 - CI step that validates every emitted `.claude-plugin/marketplace.json#plugins[*]` against `spec/marketplace-entry.schema.json` (previously CI only compiled the schema, so emitted/schema drift could slip through).
 

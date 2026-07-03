@@ -23,6 +23,26 @@
         "epistemics"
       ],
       "category": "reasoning"
+    },
+    {
+      "name": "reasoning-swarm",
+      "description": "Use when a decision or proposal has genuine multi-stakeholder stakes, spans multiple teams, or carries organization-scale or hard-to-reverse consequences — build-vs-buy calls, architecture decisions affecting several teams, policy with systemic impact, or when the user explicitly wants independent parallel takes stress-tested against each other rather than one recursive pass. Skip for single-claim analysis or solo stress-testing (use reasoning-framework instead), time-pressured decisions, mechanical tasks, or when a recommendation is wanted rather than a tour of considerations.",
+      "version": "0.1.0",
+      "source": "./plugins/reasoning-swarm",
+      "author": {
+        "name": "ravenoak"
+      },
+      "homepage": "https://github.com/ravenoak/llm-skills",
+      "repository": "https://github.com/ravenoak/llm-skills",
+      "license": "MIT",
+      "keywords": [
+        "reasoning",
+        "multi-agent",
+        "parallel-agents",
+        "analysis",
+        "epistemics"
+      ],
+      "category": "reasoning"
     }
   ]
 }
