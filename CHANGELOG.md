@@ -14,6 +14,7 @@ Until the first tagged release, "version" refers to the marketplace's layout/sch
 
 ### Changed
 - `reasoning-framework` (v0.2.0 → v0.3.0) — description and body now cross-reference `reasoning-swarm` so multi-team/organization-scale/hard-to-reverse decisions route to the parallel-dispatch sibling instead of matching `reasoning-framework`'s broader "multi-actor system" trigger.
+- `README.md` — added a Skills catalog table (both shipped skills, versions, trigger summaries) and fixed the stale "first shipping skill" status line now that two skills ship.
 
 ### Changed (breaking — marketplace layout)
 - Marketplace name is now `ravenoak-llm-skills` (was `llm-skills`); install command is `/plugin install <skill>@ravenoak-llm-skills`.

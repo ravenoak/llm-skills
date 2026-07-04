@@ -6,7 +6,16 @@ Repository: <https://github.com/ravenoak/llm-skills>
 
 ## Status
 
-Early release. The first shipping skill is [`reasoning-framework`](./plugins/reasoning-framework); more skills will land against the same spec and pipeline.
+Early release. Two skills ship today — see [Skills](#skills) below — with more landing against the same spec and pipeline.
+
+## Skills
+
+| Skill | Version | Use when |
+|---|---|---|
+| [`reasoning-framework`](./plugins/reasoning-framework) | 0.3.0 | Stress-testing a single conclusion or claim — recursive, cross-feeding lenses in one context. |
+| [`reasoning-swarm`](./plugins/reasoning-swarm) | 0.1.0 | A decision has genuine multi-stakeholder or organization-scale stakes — independent parallel-agent lenses reconciled by dialectical synthesis. |
+
+The two are siblings with opposite architectural bets — one recursive and single-context, one independent and parallel — and each defers to the other in its trigger description when it isn't the right fit. See each skill's `body.md` for the full reasoning.
 
 ## Install
 
@@ -44,7 +53,7 @@ The vendor-neutral artifact lives at `dist/portable/<id>/skill.json`; it validat
 
 ## Using a skill
 
-Once installed, the skill activates from its `description` (the trigger phrase Claude reads). Each skill's `SKILL.md` documents what it's for, when to use it, and when to skip it. For example, `reasoning-framework` activates when stress-testing a conclusion or auditing a complex claim, and is meant to be skipped for time-pressured decisions or mechanical lookups.
+Once installed, the skill activates from its `description` (the trigger phrase Claude reads). Each skill's `SKILL.md` documents what it's for, when to use it, and when to skip it. `reasoning-framework` activates when stress-testing a single conclusion or auditing a complex claim; `reasoning-swarm` activates for decisions with genuine multi-stakeholder or organization-scale stakes, dispatching independent parallel agents instead of one recursive pass. Both skip time-pressured decisions and mechanical lookups.
 
 ## Local development
 
