@@ -21,7 +21,7 @@
     "spdx-license-ids": "^3.0.20"
   },
   "devDependencies": {
-    "@types/node": "^26.1.0",
+    "@types/node": "^26.1.1",
     "@typescript-eslint/eslint-plugin": "^8.62.1",
     "@typescript-eslint/parser": "^8.60.1",
     "eslint": "^10.6.0",
