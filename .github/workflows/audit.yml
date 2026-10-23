@@ -27,15 +27,15 @@ jobs:
       - id: pip-audit
         continue-on-error: true
         run: cd tools/py && uv run pip-audit --skip-editable --format json | tee ../../pip-audit.json
-      - uses: google/osv-scanner-action@v1
-        with: { scan-args: --recursive --skip-git ./ }
+      - uses: google/osv-scanner-action/osv-scanner-action@v2.7.0
         continue-on-error: true
+      - name: Combine audit reports
+        if: failure() || steps.npm-audit.outcome == 'failure' || steps.pip-audit.outcome == 'failure'
+        run: cat npm-audit.json pip-audit.json > audit-report.json || true
       - name: Open issue on failure
         if: failure() || steps.npm-audit.outcome == 'failure' || steps.pip-audit.outcome == 'failure'
         uses: peter-evans/create-issue-from-file@v6
         with:
           title: 'Weekly audit found issues'
-          content-filepath: |
-            npm-audit.json
-            pip-audit.json
+          content-filepath: audit-report.json
           labels: security, audit
