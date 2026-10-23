@@ -22,20 +22,23 @@ jobs:
       - run: npm --prefix tools/ts ci
       - id: npm-audit
         continue-on-error: true
+        shell: bash
         run: npm --prefix tools/ts audit --audit-level=high --json | tee npm-audit.json
       - run: cd tools/py && uv sync
       - id: pip-audit
         continue-on-error: true
+        shell: bash
         run: cd tools/py && uv run pip-audit --skip-editable --format json | tee ../../pip-audit.json
-      - uses: google/osv-scanner-action@v1
-        with: { scan-args: --recursive --skip-git ./ }
+      - id: osv
+        uses: google/osv-scanner-action/osv-scanner-action@v2.7.0
         continue-on-error: true
+      - name: Combine audit reports
+        if: failure() || steps.npm-audit.outcome == 'failure' || steps.pip-audit.outcome == 'failure' || steps.osv.outcome == 'failure'
+        run: cat npm-audit.json pip-audit.json > audit-report.json || true
       - name: Open issue on failure
-        if: failure() || steps.npm-audit.outcome == 'failure' || steps.pip-audit.outcome == 'failure'
+        if: failure() || steps.npm-audit.outcome == 'failure' || steps.pip-audit.outcome == 'failure' || steps.osv.outcome == 'failure'
         uses: peter-evans/create-issue-from-file@v6
         with:
           title: 'Weekly audit found issues'
-          content-filepath: |
-            npm-audit.json
-            pip-audit.json
+          content-filepath: audit-report.json
           labels: security, audit

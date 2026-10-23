@@ -25,12 +25,17 @@ Until the first tagged release, "version" refers to the marketplace's layout/sch
 - `spec/marketplace-entry.schema.json` updated to match the actual emitted shape (object `author`, `homepage`, `repository`, `license`, `keywords`); the unused legacy `tags` field has been dropped.
 
 ### Fixed
+- `validate` › `security` had been red on `main` since 2026-08-11. `npm audit` failed on `fast-uri` (via `ajv`); `npm audit fix` moves it to 3.1.9, and also fixes `vitest`, `postcss`, `nanoid`, `brace-expansion` and `esbuild` advisories in the dev tree. That job then reaches `pip-audit`, so `anyio`, `certifi`, `pip` and `urllib3` are upgraded in `tools/py/uv.lock`.
+- The deliberate fake `AKIA…` fixture no longer fails the full-repo Semgrep scan (`.semgrepignore`).
+- The `security` job's Semgrep step was a no-op: `returntocorp/semgrep-action@v1` (semgrep 1.36.0) crashed on current registry rules and the job still passed. It now runs `uvx semgrep@1.182.0 scan --config auto --severity ERROR --error`, so only ERROR findings block.
+- The weekly `audit` never opened an issue: `npm audit | tee` hid the exit code without `pipefail`, and the osv step had no `id`. The audit steps now use `shell: bash` and the issue condition includes osv.
+- Weekly `audit` workflow failed at setup because `google/osv-scanner-action@v1` no longer resolves. It now uses `osv-scanner-action/osv-scanner-action@v2.7.0`, and passes the issue action one combined report file (it accepts a single path).
+- Dependabot ignores `typescript` 7+ until `typescript-eslint` supports it (its peer range is `<6.1`).
 - `pip-audit --strict` in CI was failing on every PR because the project's own `llm-skills` Python package isn't published to PyPI. Switched to `--skip-editable` (validate + audit workflows); real vulnerabilities in dependencies still surface.
 - `tools/ts/tsconfig.json` now sets `types: ["node"]` explicitly. Vite 8 / vitest 4 stopped emitting the triple-slash references TS 6 was relying on for automatic `@types/node` discovery, which broke every `import "node:..."`.
 
 ### Known issues (carried forward)
 - The `openai-gpt` and `portable` build targets emit artifacts under `dist/` but have not been independently confirmed against a real OpenAI custom GPT or a downstream portable-format consumer. Mark as **untested** in docs.
-- Main's `validate` workflow's `security` job (Semgrep, full-repo scan) flags the deliberate `AKIA…` test fixture in `tools/ts/test/lint.test.ts` as a real AWS key. Pre-existing; PR-context scans (diff-only) pass.
 
 ### Dependency bumps
 - GitHub Actions: `setup-uv` 3→7, `action-gh-release` 2→3, `setup-node` 4→6, `create-issue-from-file` 5→6, `checkout` 4→6.
