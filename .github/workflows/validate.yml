@@ -76,6 +76,4 @@ jobs:
       - run: cd tools/py && uv sync
       - run: cd tools/py && uv run pip-audit --skip-editable
       - name: semgrep
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: auto
+        run: uvx semgrep@1.182.0 scan --config auto --severity ERROR --error

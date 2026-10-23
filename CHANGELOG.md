@@ -27,6 +27,8 @@ Until the first tagged release, "version" refers to the marketplace's layout/sch
 ### Fixed
 - `validate` › `security` had been red on `main` since 2026-08-11. `npm audit` failed on `fast-uri` (via `ajv`); `npm audit fix` moves it to 3.1.9, and also fixes `vitest`, `postcss`, `nanoid`, `brace-expansion` and `esbuild` advisories in the dev tree. That job then reaches `pip-audit`, so `anyio`, `certifi`, `pip` and `urllib3` are upgraded in `tools/py/uv.lock`.
 - The deliberate fake `AKIA…` fixture no longer fails the full-repo Semgrep scan (`.semgrepignore`).
+- The `security` job's Semgrep step was a no-op: `returntocorp/semgrep-action@v1` (semgrep 1.36.0) crashed on current registry rules and the job still passed. It now runs `uvx semgrep@1.182.0 scan --config auto --severity ERROR --error`, so only ERROR findings block.
+- The weekly `audit` never opened an issue: `npm audit | tee` hid the exit code without `pipefail`, and the osv step had no `id`. The audit steps now use `shell: bash` and the issue condition includes osv.
 - Weekly `audit` workflow failed at setup because `google/osv-scanner-action@v1` no longer resolves. It now uses `osv-scanner-action/osv-scanner-action@v2.7.0`, and passes the issue action one combined report file (it accepts a single path).
 - Dependabot ignores `typescript` 7+ until `typescript-eslint` supports it (its peer range is `<6.1`).
 - `pip-audit --strict` in CI was failing on every PR because the project's own `llm-skills` Python package isn't published to PyPI. Switched to `--skip-editable` (validate + audit workflows); real vulnerabilities in dependencies still surface.
