@@ -11,6 +11,6 @@ uv run llm-skills --help
 
 ## Commands
 
-- `llm-skills eval <skill|--all>` — run examples through Claude or OpenAI with prompt caching enabled.
+- `llm-skills eval <skill|--all>` — run examples through Claude with prompt caching enabled.
 - `llm-skills draft <topic>` — LLM-assisted draft of `skill.json` + `body.md`.
 - `llm-skills score <skill>` — static heuristics on description quality.
