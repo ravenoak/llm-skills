@@ -8,10 +8,8 @@ requires-python = ">=3.13"
 authors = [{ name = "ravenoak" }]
 dependencies = [
   "anthropic>=0.40",
-  "openai>=1.50",
   "jsonschema>=4.23",
-  "click>=8.1",
-  "pydantic>=2.8"
+  "click>=8.1"
 ]
 
 [project.scripts]
