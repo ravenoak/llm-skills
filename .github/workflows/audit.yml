@@ -30,7 +30,7 @@ jobs:
         shell: bash
         run: cd tools/py && uv run pip-audit --skip-editable --format json | tee ../../pip-audit.json
       - id: osv
-        uses: google/osv-scanner-action/osv-scanner-action@v2.7.0
+        uses: google/osv-scanner-action/osv-scanner-action@v2.7.1
         continue-on-error: true
       - name: Combine audit reports
         if: failure() || steps.npm-audit.outcome == 'failure' || steps.pip-audit.outcome == 'failure' || steps.osv.outcome == 'failure'
